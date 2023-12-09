@@ -5,9 +5,9 @@ import Card from 'react-bootstrap/Card';
 import { Toasters } from '../components/shared/Tosters';
 import axios from 'axios';
 import QuizTest from '../components/QuizTest';
+import QuizResult from '../components/QuizResult';
 export default function HomePage() {
   const [isHovered, setIsHovered] = useState(false);
-  const [timerStatus, setTimerStatus] = useState(false);
   const [url, setUrl] = useState("")
   const [loading, setLoading] = useState(false)
   const [quizData, setQuizData] = useState([])
@@ -57,15 +57,16 @@ export default function HomePage() {
             {
               position==="test"?
               <>
-              <QuizTest quizData={quizData} setTotalScore={setTotalScore} totalScore={totalScore} setPosition={setPosition}/>
+              <QuizTest quizData={quizData} setTotalScore={setTotalScore} totalScore={totalScore} setPosition={setPosition} setQuizData={setQuizData}/>
               </>
               :
               position==="result"?
               <>
+              <QuizResult quizData={quizData} totalScore={totalScore}/>
               </>
               :
               <>
-              <QuizForm setTimerStatus={setTimerStatus} timerStatus={timerStatus} setUrl={setUrl} url={url} getQustions={getQustions}   />
+              <QuizForm setUrl={setUrl} url={url} getQustions={getQustions}   />
               </>
             }
 
