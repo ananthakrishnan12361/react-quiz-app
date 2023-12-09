@@ -1,66 +1,36 @@
-import React from 'react';
-import { Card, Form, Button } from 'react-bootstrap';
-import { useSpring, animated } from 'react-spring';
+import React, { useState } from 'react'
+import FormFloatingInput from './shared/InputBox';
+import FormFloatingSelect from './shared/SelectBox';
+import { CategoryList, DifficultyList, TypeList } from '../const/SelectBoxData';
+import SlideButton from './shared/SlideButton';
+import { Toasters } from './shared/Tosters';
 
-const QuizForm = () => {
-  const shadowAnimation = useSpring({
-    boxShadow: '0px 0px 15px 0px rgba(0,0,0,0.1)',
-    from: { boxShadow: '0px 0px 0px 0px rgba(0,0,0,0)' },
-  });
+export default function QuizForm({url,setUrl,setTimerStatus,timerStatus,getQustions}) {
+  const [numberOfQuestions, setNumberOfQuestions] = useState(10)
+  const [category, setCategory] = useState("")
+  const [difficulty, setDifficulty] = useState("")
+  const [type, setType] = useState("")
+  const onSubmit=()=>{
+    if (!numberOfQuestions||numberOfQuestions==="0"||numberOfQuestions===0) {
+      Toasters({ message: "Enter Number of Questions", type: "warning" });
+      return
+    }
+    const apiUrl = `https://opentdb.com/api.php?amount=${numberOfQuestions}${category ? `&category=${category}` : ''}${difficulty ? `&difficulty=${difficulty}` : ''}${type ? `&type=${type}` : ''}`;
+
+    setUrl(apiUrl)
+    getQustions(apiUrl)
+  }
 
   return (
-    <animated.div style={shadowAnimation}>
-      <Card>
-        <Card.Body>
-          <Form>
-            <Form.Group controlId="numberOfQuestions">
-              <Form.Label>Number of Questions:</Form.Label>
-              <Form.Control
-                type="number"
-                min="5"
-                placeholder="Enter number of questions"
-                required
-              />
-              <Form.Text className="text-muted">
-                Please enter a number greater than or equal to 5.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group controlId="selectCategory">
-              <Form.Label>Select Category:</Form.Label>
-              <Form.Control as="select" required>
-                <option value="any">Any Category</option>
-                {/* Add all the category options here */}
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="selectDifficulty">
-              <Form.Label>Select Difficulty:</Form.Label>
-              <Form.Control as="select" required>
-                <option value="any">Any Difficulty</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId="selectType">
-              <Form.Label>Select Type:</Form.Label>
-              <Form.Control as="select" required>
-                <option value="any">Any Type</option>
-                <option value="multiple">Multiple Choice</option>
-                <option value="boolean">True / False</option>
-              </Form.Control>
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-    </animated.div>
-  );
-};
-
-export default QuizForm;
+    <div>
+       <FormFloatingInput id={1} lable={"Number of Questions:"} value={numberOfQuestions} setState={setNumberOfQuestions} type={"number"}  />
+       <FormFloatingSelect id={2} lable={"Select Category:"} value={category} setState={setCategory} dataList={CategoryList}   />
+       <FormFloatingSelect id={3} lable={"Select Difficulty Level:"} value={difficulty} setState={setDifficulty} dataList={DifficultyList}   />
+       <FormFloatingSelect id={4} lable={"Select Type Questions:"} value={type} setState={setType} dataList={TypeList}   />
+       <SlideButton id={5} lable={"Do you need timer"} value={timerStatus} setValue={setTimerStatus} />
+       <div className='d-flex align-items-center justify-content-center pt-5' > 
+       <button className='btn btn-info' onClick={()=>onSubmit()}>Start Quiz </button>
+       </div>
+    </div>
+  )
+}
