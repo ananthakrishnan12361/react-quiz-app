@@ -4,6 +4,36 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 export default function QuizCard({ question, options, onOptionSelect }) {
     const [isHovered, setIsHovered] = useState(false);
+//     Explanation:
+
+// State Initialization:
+
+// isHovered: A state variable to track whether the card is being hovered over.
+
+// Functional Component:
+
+// QuizCard is a functional component that takes props as its parameters (question, options, onOptionSelect).
+
+// Card Styling:
+
+// The component uses the Card component from react-bootstrap for styling.
+// The appearance is adjusted based on whether the card is being hovered over or not.
+
+// Mouse Events:
+
+// The onMouseEnter and onMouseLeave events are used to handle changes in the isHovered state.
+
+// Rendering:
+
+// The component renders the question using dangerouslySetInnerHTML to handle HTML content.
+// It maps through the options and renders radio buttons for each option.
+// Each radio button triggers the onOptionSelect function when selected.
+
+// Styling and Layout:
+
+// Styling is applied to the card to provide a visual effect when hovered over.
+// The layout is structured using Row and Col components from react-bootstrap.
+// This component represents a card in a quiz, displaying a question and multiple options with radio buttons. It uses react-bootstrap for styling and layout. The dangerouslySetInnerHTML is used for rendering HTML content within the question and options. The onOptionSelect function is called when a user selects an option.
   return (
     <div className='pt-2 pb-2'>
               <Card
