@@ -26,9 +26,13 @@ npm start
 Open your browser and visit http://localhost:3000 to see TriviaPulse in action.
 
 
-#Technologies Used
+# Technologies Used
 React
+
 Axios (for API requests)
-Acknowledgments
+
+# Acknowledgments
+
 TriviaPulse was developed as part of a React learning project.
+
 Thanks to the Open Trivia Database for providing the API for this quiz app.
