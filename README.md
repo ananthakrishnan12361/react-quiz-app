@@ -31,6 +31,10 @@ React
 
 Axios (for API requests)
 
+React-bootstrap
+
+
+
 # Acknowledgments
 
 TriviaPulse was developed as part of a React learning project.
